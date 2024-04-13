@@ -1,9 +1,10 @@
-## Purpose 
+## Program Overview & Purpose 
 
 Routing-system routes all traffic coming from Ngrok (traffic from Raspberry Pi's), discord, and data processing. It is the central hub for all communication within the IoT irrigation systems controller.  
 
 
-## Main Application (main.py)
+## Main (main.py)
+
 ### Overview
 The main application sets up and runs a FastAPI application with OpenTelemetry instrumentation for tracing HTTP requests and exporting the traces to a custom JSON file. It also runs a diagnostics app alongside the main app, each on different ports using threading.
 
