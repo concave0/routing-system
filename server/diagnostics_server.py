@@ -11,31 +11,29 @@ from slowapi.errors import RateLimitExceeded
 
 
 """ CONFIG """
+
 diagnostics_app = FastAPI()
 limiter = Limiter(key_func=get_remote_address)
 diagnostics_app.state.limiter = limiter
 
 async def rate_limit_exceeded_handler(request: Request, exc: Exception) -> Response:
   if isinstance(exc, RateLimitExceeded):
-      return _rate_limit_exceeded_handler(request, exc)  # Corrected line
+      return _rate_limit_exceeded_handler(request, exc)  
   else:
       raise exc
 
-
-# Use the wrapper function as the exception handler for RateLimitExceeded
 diagnostics_app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
 
-
 """ URL HashMap """
+
 class UrlHashmap: 
-  # Read the JSON file
   with open("urls/url_map_diagnostics.json", "r") as json_file:
       env_vars = json.load(json_file)
   url_map = dict(env_vars)
   json_file.close()
 
-
 """ Diagnostics """
+
 class DiagnosticsData: 
 
   # Data Proccesser Diagnostic
@@ -52,11 +50,13 @@ class DiagnosticsData:
 
 
 """ Objects """
+
 url_hashmap = UrlHashmap()
 scheduler = BlockingScheduler()
 diagnostics = DiagnosticsData()
 
 """ Jobs """
+s
 def collect_data_uptime():
 
   now = datetime.datetime.now()
